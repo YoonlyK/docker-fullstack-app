@@ -1,0 +1,23 @@
+language: generic
+
+sudo: required
+
+services:
+ - docker
+
+before_install:
+ - docker build -t onlyrice/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+ - docker run -e CI=true onlyrice/react-test-app npm test
+
+after_success:
+ - docker build -t onlyrice/docker-frontend ./frontend
+ - docker build -t onlyrice/docker-backend ./backend
+ - docker build -t onlyrice/docker-nginx ./nignx
+
+ - echo "$DOKER_HUB_PASSWORD" | docker login -u "$DOKER_HUB_ID" --password-stdin
+
+ - docker push onlyrice/docker-frontend
+ - docker push onlyrice/docker-backend
+ - docker push onlyrice/docker-nginx
