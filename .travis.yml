@@ -21,3 +21,13 @@ after_success:
  - docker push onlyrice/docker-frontend
  - docker push onlyrice/docker-backend
  - docker push onlyrice/docker-nginx
+
+deploy:
+ provide: elasticbeanstalk
+ region: "ap-northeast-2"
+ app: "docker-fullstack-app"
+ env: Dockerfullstackapp-env
+ bucket_name: elasticbeanstalk-ap-northeast-2-986104995910
+ bucket_path: "docker-fullstack-app"
+ on:
+  branch: master
