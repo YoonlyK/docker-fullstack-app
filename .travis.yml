@@ -14,7 +14,7 @@ script:
 after_success:
  - docker build -t onlyrice/docker-frontend ./frontend
  - docker build -t onlyrice/docker-backend ./backend
- - docker build -t onlyrice/docker-nginx ./nignx
+ - docker build -t onlyrice/docker-nginx ./nginx
 
  - echo "$DOKER_HUB_PASSWORD" | docker login -u "$DOKER_HUB_ID" --password-stdin
 
